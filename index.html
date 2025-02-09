@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Meow+Script&family=Pacifico&display=swap"
+			rel="stylesheet"
+		/>
+		<title>LOVE</title>
+		<link rel="icon" type="image/png" href="image/favicon.png" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				height: 100vh;
+				width: 100vw;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-family: 'Pacifico', serif;
+				font-weight: 400;
+				font-style: normal;
+				background-color: #fdf4e3;
+				overflow: hidden;
+				transition: 1s;
+			}
+
+			.svg-large-img svg {
+				color: #ca0147;
+				width: 100%;
+				max-width: 800px;
+				display: flex; /* Убедимся, что элемент видим */
+				justify-content: center;
+				align-items: center;
+				opacity: 0.01;
+				transform: scale(0.01);
+				cursor: pointer;
+				will-change: transform, opacity;
+			}
+			.svg-large-img {
+				z-index: 101;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="svg-large-img" onclick="heartClick()">
+			<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
+					fill="currentColor"
+				/>
+			</svg>
+		</div>
+		<script>
+			let svgElement = document.querySelector('.svg-large-img svg')
+
+			function shakeHeart() {
+				svgElement.style.transition = 'transform 0.1s ease-in-out'
+				svgElement.style.transform = 'rotate(-4deg)'
+
+				setTimeout(() => {
+					svgElement.style.transform = 'rotate(3deg)'
+				}, 100)
+
+				setTimeout(() => {
+					svgElement.style.transform = 'rotate(-2deg)'
+				}, 200)
+
+				setTimeout(() => {
+					svgElement.style.transform = 'rotate(2deg)'
+				}, 300)
+
+				setTimeout(() => {
+					svgElement.style.transform = 'rotate(0deg)'
+				}, 400)
+			}
+
+			function heartClick() {
+				svgElement.style.transition = 'transform 0.2s ease-in-out'
+				svgElement.style.transform = `scale(1.05})`
+				shakeHeart()
+				boom()
+			}
+
+			function boom() {
+				const container = document.querySelector('.svg-large-img')
+
+				for (let i = 0; i < 51; i++) {
+					const heart = document.createElementNS(
+						'http://www.w3.org/2000/svg',
+						'svg'
+					)
+					heart.setAttribute('viewBox', '0 0 24 24')
+					heart.setAttribute('fill', '#E4717A')
+					heart.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+
+					const size = 75 + Math.random() * 75
+					heart.style.position = 'absolute'
+					heart.style.zIndex = '10'
+					heart.style.width = `${size}px`
+					heart.style.height = 'auto'
+					heart.style.left = '50%'
+					heart.style.top = '50%'
+					heart.style.transform = 'translate(-50%, -50%)'
+					heart.style.opacity = '1'
+					heart.style.transition = `transform ${
+						0.5 + Math.random()
+					}s ease-out, opacity ${0.5 + Math.random()}s ease-out`
+					heart.style.filter = `brightness(${0.75 + Math.random() * 0.75})`
+
+					// Добавляем путь сердца
+					const path = document.createElementNS(
+						'http://www.w3.org/2000/svg',
+						'path'
+					)
+					path.setAttribute(
+						'd',
+						'M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z'
+					)
+					path.setAttribute('fill', ' #E4717A')
+
+					heart.appendChild(path)
+					document.body.appendChild(heart)
+
+					// Случайное направление полёта
+					const angle = Math.random() * 2 * Math.PI
+					const distance = 200 + Math.random() * 400
+					const x = Math.cos(angle) * distance
+					const y = Math.sin(angle) * distance
+
+					setTimeout(() => {
+						heart.style.transform = `translate(${x}px, ${y}px) scale(0)`
+						heart.style.opacity = '0'
+					}, 10)
+
+					// Удаление сердца после анимации
+					setTimeout(() => {
+						heart.remove()
+					}, 1500)
+				}
+			}
+
+			document.addEventListener('DOMContentLoaded', function () {
+				svgElement.style.transition =
+					'transform 2s ease-in-out, opacity 2s ease-in-out'
+				setTimeout(() => {
+					svgElement.style.opacity = '1'
+					setTimeout(() => {
+						svgElement.style.transform = 'scale(1)'
+
+						// Добавление эффекта пульсации (удары сердца)
+						svgElement.style.transition = 'transform 0.2s ease-in-out' // Для пульсации
+
+						// Первый удар сердца
+						setTimeout(() => {
+							svgElement.style.transform = 'scale(1.1)' // Увеличиваем размер
+							hp.style.opacity = '1'
+						}, 500)
+
+						setTimeout(() => {
+							svgElement.style.transform = 'scale(1)' // Возвращаем к нормальному размеру
+						}, 600)
+
+						// Второй удар сердца
+						setTimeout(() => {
+							svgElement.style.transform = 'scale(1.1)' // Увеличиваем размер
+						}, 700)
+
+						setTimeout(() => {
+							svgElement.style.transform = 'scale(1)' // Возвращаем к нормальному размеру
+						}, 800)
+					}, 150)
+				}, 1000)
+			})
+		</script>
+	</body>
+</html>

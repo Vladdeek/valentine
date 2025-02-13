@@ -31,6 +31,19 @@
 				overflow: hidden;
 				transition: 1s;
 			}
+			p {
+				justify-content: center;
+				align-items: center;
+				position: fixed;
+				text-align: center;
+				user-select: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				font-size: 36px;
+				z-index: 10000;
+				transition: 0.5s;
+				color: white;
+			}
 
 			.svg-large-img svg {
 				color: #ca0147;
@@ -47,9 +60,19 @@
 			.svg-large-img {
 				z-index: 101;
 			}
+			.paragraph1 {
+				transform: translateY(-25px);
+				opacity: 0;
+			}
+			.paragraph2 {
+				transform: translateY(15px);
+				opacity: 0;
+			}
 		</style>
 	</head>
 	<body>
+		<p class="paragraph1 text">С днём всех</p>
+		<p class="paragraph2 text">влюбленных</p>
 		<div class="svg-large-img" onclick="heartClick()">
 			<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path
@@ -60,6 +83,8 @@
 		</div>
 		<script>
 			let svgElement = document.querySelector('.svg-large-img svg')
+			let p1 = document.querySelector('.paragraph1')
+			let p2 = document.querySelector('.paragraph2')
 
 			function shakeHeart() {
 				svgElement.style.transition = 'transform 0.1s ease-in-out'
@@ -161,7 +186,7 @@
 						// Первый удар сердца
 						setTimeout(() => {
 							svgElement.style.transform = 'scale(1.1)' // Увеличиваем размер
-							hp.style.opacity = '1'
+							p1.style.opacity = '1'
 						}, 500)
 
 						setTimeout(() => {
@@ -171,6 +196,7 @@
 						// Второй удар сердца
 						setTimeout(() => {
 							svgElement.style.transform = 'scale(1.1)' // Увеличиваем размер
+							p2.style.opacity = '1'
 						}, 700)
 
 						setTimeout(() => {
